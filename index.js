@@ -53,8 +53,9 @@ board.on('ready', function () {
 function letsPlay(){
     var rightWheel= new five.Motor({ pins: [12, 4], invertPWM: false });
     var leftWheel = new five.Motor({ pins: [14, 5], invertPWM: false });
-    var rightWheelRev= new five.Motor({ pins: [4, 12], invertPWM: false });
-    var leftWheelRev = new five.Motor({ pins: [5, 14], invertPWM: false });
+    var rightWheelRev= new five.Motor({ pins: [0, 16], invertPWM: false });
+    var leftWheelRev = new five.Motor({ pins: [15, 13], invertPWM: false });
+
     var scalar = 256; // Friction coefficient
     var actioncounter = 0;
     var newcommand = "home()";
@@ -100,34 +101,61 @@ function letsPlay(){
 
 ///////////////////////////////////////////////////////////////
 
+    function wheelLeft(forward) {
+        if(forward) {
+            leftWheelRev.rev(0);
+            leftWheel.fwd(0);
+        }
+        else{
+            leftWheel.rev(0);
+            leftWheelRev.fwd(0);
+        }
+    }
+
+    function wheelRight(forward)
+    {
+        if(forward) {
+            rightWheelRev.rev(0);
+            rightWheel.fwd(0);
+        }
+        else{
+            rightWheel.rev(0);
+            rightWheelRev.fwd(0);
+        }
+    }
 // These functions are for stopping and moving the car with a little workaround specific to the Feather HUZZAH board and Johnny-Five. Leave these as they are.
     function reverse() {
-        leftWheelRev.fwd(0);
-        rightWheelRev.fwd(0);
+        wheelLeft(false);
+        wheelRight(false);
+
         currentaction = "bk";
         console.log("Reverse!");
     }
     function forward() {
-        leftWheel.fwd(0);
-        rightWheel.fwd(0);
+        wheelRight(true);
+        wheelLeft(true);
+
         currentaction = "fd";
         console.log("Forward!");
     }
     function stop() {
         leftWheel.rev(0); // This makes the car stop.
         rightWheel.rev(0); 
+        leftWheelRev.rev(0);
+        rightWheelRev.rev(0);
+
         currentaction = "stopped";
         console.log("Stop!");
     }
     function left() {
-        //leftWheel.rev(0);
-        rightWheel.fwd(0);
+        wheelRight(true);
+
         currentaction = "lt";
         console.log("Left!");
     }
     function right() {
-        leftWheel.fwd(0);
-        //rightWheel.rev(0);
+        wheelLeft(true);
+        
         currentaction = "rt";
         console.log("Right!");
     }
