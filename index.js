@@ -16,7 +16,7 @@ var Message = require('azure-iot-device').Message;
 
 // Setup - Don't modify
 var board = new five.Board({
-    io: new Firmata(new EtherPortClient({ host: deviceHost, port: 3030 })), timeout: 30000 });
+    io: new Firmata(new EtherPortClient({ host: deviceHost, port: 3030 })), timeout: 60000 });
 var connectionString = 'HostName=huzzahbots.azure-devices.net;DeviceId=' + deviceID + ';SharedAccessKey=' + deviceKey + '';
 var client = Client.fromConnectionString(connectionString, Protocol);
 var currentaction = "offline";
@@ -150,14 +150,23 @@ function letsPlay(){
     function left() {
         wheelRight(true);
 
+        setTimeout(function () {
+            stop();
+        }, 500);
+
         currentaction = "lt";
         console.log("Left!");
     }
     function right() {
         wheelLeft(true);
-        
+
         currentaction = "rt";
         console.log("Right!");
+
+        setTimeout(function () {
+            stop();
+        }, 500);
+
     }
     function exit() {
         currentaction = "offline";
