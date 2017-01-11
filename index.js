@@ -51,7 +51,7 @@ board.on('ready', function () {
         };
     }
 function letsPlay(){
-    var rightWheel = new five.Motor({ pins: [4, 12], invertPWM: false });
+    var rightWheel = new five.Motor({ pins: [12, 4], invertPWM: false });
     var leftWheel = new five.Motor({ pins: [5, 14], invertPWM: false });
     var scalar = 256; // Friction coefficient
     var actioncounter = 0;
@@ -110,14 +110,14 @@ function letsPlay(){
         console.log("Stop!");
     }
     function left() {
-        //leftWheel.rev(0);
+        leftWheel.rev(0);
         rightWheel.fwd(0);
         currentaction = "lt";
         console.log("Left!");
     }
     function right() {
         leftWheel.fwd(0);
-        //rightWheel.rev(0);
+        rightWheel.rev(0);
         currentaction = "rt";
         console.log("Right!");
     }
