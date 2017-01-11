@@ -116,7 +116,7 @@ function letsPlay(){
         console.log("Stop!");
     }
     function left() {
-        //leftWheel.rev(0);
+        leftWheel.rev(0);
         rightWheel.fwd(0);
         currentaction = "lt";
         console.log("Left!");
