@@ -51,14 +51,18 @@ board.on('ready', function () {
         };
     }
 function letsPlay(){
-    var rightWheel = new five.Motor({ pins: [4, 12], invertPWM: false });
-    var leftWheel = new five.Motor({ pins: [5, 14], invertPWM: false });
+    var rightWheel= new five.Motor({ pins: [12, 4], invertPWM: false });
+    var leftWheel = new five.Motor({ pins: [14, 5], invertPWM: false });
+    var rightWheelRev= new five.Motor({ pins: [4, 12], invertPWM: false });
+    var leftWheelRev = new five.Motor({ pins: [5, 14], invertPWM: false });
     var scalar = 256; // Friction coefficient
     var actioncounter = 0;
     var newcommand = "home()";
     var speed = 255;
     leftWheel.rev(0);
     rightWheel.rev(0); 
+    leftWheelRev.rev(0);
+    rightWheelRev.rev(0); 
 
     function actionSender(){
         var distance = 0;
@@ -98,8 +102,8 @@ function letsPlay(){
 
 // These functions are for stopping and moving the car with a little workaround specific to the Feather HUZZAH board and Johnny-Five. Leave these as they are.
     function reverse() {
-        leftWheel.rev(0);
-        rightWheel.rev(0);
+        leftWheelRev.fwd(0);
+        rightWheelRev.fwd(0);
         currentaction = "bk";
         console.log("Reverse!");
     }
@@ -116,14 +120,14 @@ function letsPlay(){
         console.log("Stop!");
     }
     function left() {
-        leftWheel.rev(0);
+        //leftWheel.rev(0);
         rightWheel.fwd(0);
         currentaction = "lt";
         console.log("Left!");
     }
     function right() {
         leftWheel.fwd(0);
-        rightWheel.rev(0);
+        //rightWheel.rev(0);
         currentaction = "rt";
         console.log("Right!");
     }
