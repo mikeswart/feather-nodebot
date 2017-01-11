@@ -97,6 +97,12 @@ function letsPlay(){
 ///////////////////////////////////////////////////////////////
 
 // These functions are for stopping and moving the car with a little workaround specific to the Feather HUZZAH board and Johnny-Five. Leave these as they are.
+    function reverse() {
+        leftWheel.rev(0);
+        rightWheel.rev(0);
+        currentaction = "bk";
+        console.log("Reverse!");
+    }
     function forward() {
         leftWheel.fwd(0);
         rightWheel.fwd(0);
@@ -117,7 +123,7 @@ function letsPlay(){
     }
     function right() {
         leftWheel.fwd(0);
-        //rightWheel.rev(0);
+        rightWheel.rev(0);
         currentaction = "rt";
         console.log("Right!");
     }
@@ -132,6 +138,7 @@ function letsPlay(){
         'left': left,
         'right': right,
         'space': stop,
+        'down': reverse,
         'q': exit
     };
 
